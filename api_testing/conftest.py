@@ -1,9 +1,7 @@
-import datetime
 import pytest
 from api_testing.api.courier_client import CourierAPI
 from api_testing.helpers.courier_helpers import generate_courier_payload
 from api_testing.methods.courier_methods import register_new_courier_and_return_login_password
-from api_testing.models.order import Order
 from api_testing.api.order_client import OrderAPI
 from urls import BASE_URL
 
@@ -45,16 +43,3 @@ def valid_courier_id(api_client):
 @pytest.fixture
 def order_api_client():
     return OrderAPI(BASE_URL)
-
-@pytest.fixture
-def valid_order_payload():
-    return Order(
-        firstName="Naruto",
-        lastName="Uchiha",
-        address="Konoha, 142 apt.",
-        metroStation=4,
-        phone="+7 800 355 35 35",
-        rentTime=5,
-        deliveryDate=(datetime.date.today() + datetime.timedelta(days=1)).isoformat(),
-        comment="Saske, come back to Konoha"
-    ).to_dict()
