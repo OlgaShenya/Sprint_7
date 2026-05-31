@@ -1,8 +1,7 @@
 import datetime
 import pytest
-import uuid
-from api_testing.models.courier import Courier
 from api_testing.api.courier_client import CourierAPI
+from api_testing.helpers.courier_helpers import generate_courier_payload
 from api_testing.methods.courier_methods import register_new_courier_and_return_login_password
 from api_testing.models.order import Order
 from api_testing.api.order_client import OrderAPI
@@ -28,16 +27,8 @@ def api_client():
         client.delete(courier_id)
 
 @pytest.fixture
-def valid_courier():
-    return Courier(
-        login="courier_" + uuid.uuid4().hex[:8],
-        password="AutoTest123!",
-        firstName="QA_Student"
-    )
-
-@pytest.fixture
-def valid_payload(valid_courier):
-    return valid_courier.to_dict()
+def valid_payload():
+    return generate_courier_payload()
 
 @pytest.fixture
 def created_courier_payload(api_client):
