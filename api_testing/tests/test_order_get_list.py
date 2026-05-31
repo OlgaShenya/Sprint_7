@@ -1,6 +1,7 @@
 import allure
 import pytest
 
+from api_testing.helpers.order_helpers import generate_order_payload
 from api_testing.tests.utils.assertions import (
     assert_available_station_structure,
     assert_error_response,
@@ -29,17 +30,7 @@ class TestOrderGetList:
     @allure.title("Проверка структуры заказа в списке")
     @allure.description("Создание заказа и проверка полей в списке orders")
     def test_get_orders_order_has_required_fields(self, order_api_client):
-        order_payload = {
-            "firstName": "Test",
-            "lastName": "User",
-            "address": "Test Address",
-            "metroStation": 1,
-            "phone": "+7 999 999 99 99",
-            "rentTime": 1,
-            "deliveryDate": "2025-01-01",
-            "comment": "Test order",
-            "color": ["BLACK"],
-        }
+        order_payload = generate_order_payload()
         order_api_client.create(order_payload)
 
         response = order_api_client.get_orders()
